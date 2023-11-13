@@ -7,7 +7,8 @@ public class YTVideo
 
 
     //constructors
-    public YTVideo(String title, String url, int length, int currentTime) {
+
+    public YTVideo(String title, String url, int length) {
         this.title = title;
         this.url = url;
         this.length = length;
@@ -18,6 +19,7 @@ public class YTVideo
         url = "";
         length = 0;
     }
+
 
     //getters
     public String getTitle() {
