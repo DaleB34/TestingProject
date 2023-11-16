@@ -37,7 +37,7 @@ class YTVideoTest
     }
 
     @Test
-    void ()
+    void dosomething()
     {
         YTVideo yt = new YTVideo();
         yt.setUrl("https://www.youboot.com/watch?v=U6Z8FkjGEb4&t=2s");
