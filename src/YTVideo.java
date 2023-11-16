@@ -3,12 +3,12 @@ public class YTVideo
     //instantiate variables
     public String title;
     public String url;
-    public int length; //in seconds
+    public String length; //in hours:minutes:seconds
 
 
     //constructors
 
-    public YTVideo(String title, String url, int length) {
+    public YTVideo(String title, String url, String length) {
         this.title = title;
         this.url = url;
         this.length = length;
@@ -17,7 +17,7 @@ public class YTVideo
     public YTVideo() {
         title = "";
         url = "";
-        length = 0;
+        length = "00:00:00";
     }
 
 
@@ -30,7 +30,7 @@ public class YTVideo
         return url;
     }
 
-    public int getLength() {
+    public String getLength() {
         return length;
     }
 
@@ -44,7 +44,7 @@ public class YTVideo
         this.url = url;
     }
 
-    public void setLength(int length) {
+    public void setLength(String length) {
         this.length = length;
     }
 }
