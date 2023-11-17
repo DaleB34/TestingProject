@@ -21,7 +21,7 @@ class YTVideoTest
     }
 
     @Test
-    void urlIsYoutube()
+    void urlIsNormalYoutube()
     {
         YTVideo yt = new YTVideo();
         yt.setUrl("https://www.youtube.com/watch?v=U6Z8FkjGEb4&t=2s");
@@ -29,7 +29,7 @@ class YTVideoTest
     }
 
     @Test
-    void urlIsntYoutube()
+    void urlIsntNormalYoutube()
     {
         YTVideo yt = new YTVideo();
         yt.setUrl("https://www.youboot.com/watch?v=U6Z8FkjGEb4&t=2s");
@@ -54,6 +54,43 @@ class YTVideoTest
     }
 
     @Test
+    void isNotAnyYTLink()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("yuotu.be.com/msrioux");
+        assertFalse(yt.getUrl().matches(".*youtu(\\.be|be\\.com).*"));
+    }
+
+    @Test
+    void isYTLinkAbnormal()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("youtubecomyoutubcom.com.com.com.youtube.");
+        assertFalse(yt.getUrl().matches(".*youtu(\\.be|be\\.com).*"));
+    }
+
+    @Test
+    void isVideoWithTimeStamp()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/watch?v=U6Z8FkjGEb4&t=2s");
+        assertTrue(yt.getUrl().matches(".*(v=){1}.*(t=){1}.*"));
+    }
+
+    @Test
+    void isVideoWithoutTimeStamp()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/watch?v=U6Z8FkjGEb4");
+        assertFalse(yt.getUrl().matches(".*(v=){1}.*(t=){1}.*"));
+    }
+
+    @Test
+    void invalidSigns()
+    {
+        YTVideo yt = new YTVideo();
+
+    }
 
 
 
