@@ -170,8 +170,92 @@ class YTVideoTest
     }
 
 
+    //All Time test cases
 
+    @Test
+    void noOnes()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("110");
+        assertTrue(yt.getTime().matches(".*0$"));
+        //checks if there is an amount in the ones place of the time
+    }
 
+    @Test
+    void isOnes()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("111");
+        assertFalse(yt.getTime().matches(".*0$"));
+        //checks if there is an amount in the ones place of the time
+    }
 
+    @Test
+    void isTens()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("163");
+        assertTrue(yt.getTime().matches("[0-9]*([6-9][0-9])$"));
+        //checks if there is an amount in the tens place of time
+    }
+
+    @Test
+    void noTens()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140");
+        assertFalse(yt.getTime().matches("[0-9]*([6-9][0-9])$"));
+        //checks if there is an amount in the tens place of time
+    }
+
+    @Test
+    void hasLetters()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140a");
+        assertTrue(yt.getTime().matches(".*[A-Za-z].*"));
+    }
+
+    @Test
+    void noLetters()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140");
+        assertFalse(yt.getTime().matches(".*[A-Za-z].*"));
+    }
+
+    @Test
+    void timeIsCool()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("11111");
+        String char1 = yt.getTime().charAt(0) + "";
+        assertTrue(yt.getTime().matches(char1 + "{" + yt.getTime().length() + "}"));
+    }
+
+    @Test
+    void timeIsLame()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("11211");
+        String char1 = yt.getTime().charAt(0) + "";
+        assertFalse(yt.getTime().matches(char1 + "{" + yt.getTime().length() + "}"));
+    }
+
+    @Test
+    void moreThanOneZero()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140000");
+        assertTrue(yt.getTime().matches(".*0{2}"));
+    }
+
+    @Test
+    void oneZeroOrLess()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140");
+        assertFalse(yt.getTime().matches(".*0{2}"));
+    }
 
 }
