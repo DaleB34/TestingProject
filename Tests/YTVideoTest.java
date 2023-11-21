@@ -86,11 +86,91 @@ class YTVideoTest
     }
 
     @Test
+    void validSigns()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/watch?v=U6Z8FkjGEb4");
+        assertFalse(yt.getUrl().matches(".*[!@#$%^&*()\\[\\];',|<>\"{}\\-+`~].*"));
+        //only valid signs that are in a youtube link are - _ / = . :
+    }
+
+    @Test
     void invalidSigns()
     {
         YTVideo yt = new YTVideo();
-
+        yt.setUrl("youtube.com/watch?v=U67432498$$$!@@#");
+        assertTrue(yt.getUrl().matches(".*[!@#$%^&*()\\[\\];',|<>\"{}\\-+`~].*"));
+        //only valid signs that are in a youtube link are - _ / = . :
     }
+
+    @Test
+    void startsWithHttp()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/watch?v=U6Z8FkjGEb4");
+        assertTrue(yt.getUrl().matches("^http.*"));
+    }
+
+    @Test
+    void doesntStartWithHttp()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("www.youtube.com/watch?v=U6Z8FkjGEb4");
+        assertFalse(yt.getUrl().matches("^http.*"));
+    }
+
+    @Test
+    void chanceOfRickRoll()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        assertTrue(yt.getUrl().matches(".*(dQw4w9WgXcQ).*"));
+        //dont take any chances with any link
+    }
+
+    @Test
+    void NoChanceOfRickRoll()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("www.youtube.com/watch?v=U6Z8FkjGEb4");
+        assertFalse(yt.getUrl().matches(".*(dQw4w9WgXcQ).*"));
+        //dont take any chances with any link
+    }
+
+    @Test
+    void isChannelLink()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/channel/UCu9UrE6gUL36T9M4fnc7RjA");
+        assertTrue(yt.getUrl().matches(".*(channel){1}.*"));
+    }
+
+    @Test
+    void isNotChannelLink()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        assertFalse(yt.getUrl().matches(".*(channel){1}.*"));
+    }
+
+    @Test
+    void isHomeScreen()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/?bp=wgUCEAE%3D");
+        assertTrue(yt.getUrl().matches(".*(\\?bp=){1}.*"));
+    }
+
+    @Test
+    void isNotHomeScreen()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        assertFalse(yt.getUrl().matches(".*(\\?bp=){1}.*"));
+    }
+
+
+
 
 
 
