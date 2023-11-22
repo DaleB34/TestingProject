@@ -345,4 +345,171 @@ class YTVideoTest
 
     //all Title test cases
 
+    @Test
+    void startsWithCapital()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("Food Theory: New York Pizza is BEST... and I Can Prove It!");
+        assertTrue(yt.getTitle().matches("^[A-Z].*"));
+    }
+
+    @Test
+    void doesNotStartWithCapital()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("playing fnaf VR in a field");
+        assertFalse(yt.getTitle().matches("^[A-Z].*"));
+    }
+
+    @Test
+    void startsWithLower()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("playing fnaf VR in a field");
+        assertTrue(yt.getTitle().matches("^[a-z].*"));
+    }
+
+    @Test
+    void doesNotStartWithLower()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("Food Theory: New York Pizza is BEST... and I Can Prove It!");
+        assertFalse(yt.getTitle().matches("^[a-z].*"));
+    }
+
+    @Test
+    void hasNumbers()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("Every Way to Cook Steak (34 Ways)");
+        assertTrue(yt.getTitle().matches(".*[0-9].*"));
+    }
+
+    @Test
+    void hasNoNumbers()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("playing fnaf VR in a field");
+        assertFalse(yt.getTitle().matches(".*[0-9].*"));
+    }
+
+    @Test
+    void anySpaces()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("Every Way to Cook Steak (34 Ways)");
+        assertTrue(yt.getTitle().matches(".* .*"));
+    }
+
+    @Test
+    void noSpaces()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("EveryWaytoCookSteak(34Ways)");
+        assertFalse(yt.getTitle().matches(".* .*"));
+    }
+
+    @Test
+    void isClickBait()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("Food Theory: New York Pizza is BEST... and I Can Prove It!");
+        assertTrue(yt.getTitle().matches(".*([A-Z]{4,}|\\.\\.\\.).*"));
+        //checks if there are 4 or more (putting a comma after a number extends the range to that number or more)
+        //instances of a capital in the title or ellipses are used
+    }
+
+    @Test
+    void isNotClickBait()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("playing fnaf VR in a field");
+        assertFalse(yt.getTitle().matches(".*([A-Z]{4,}|\\.\\.\\.).*"));
+        //checks if there are 4 or more (putting a comma after a number extends the range to that number or more)
+        //instances of a capital in the title or ellipses are used
+    }
+
+    @Test
+    void couldBeRickRoll()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("Rick Astley - Never Gonna Give You Up (Official Music Video)");
+        assertTrue(yt.getTitle().matches(".*Rick.(Astley|Roll).*"));
+        //can't ever be too careful
+    }
+
+    @Test
+    void couldNotBeRickRoll()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("You will not be pranked in this video");
+        assertFalse(yt.getTitle().matches(".*Rick.(Astley|Roll).*"));
+        //can't ever be too careful
+        //but, you can be wrong
+    }
+
+    @Test
+    void lastLetterUppercase()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("THIS TITLE WILL BE IN ALL CAPS FOR DRAMATIC EFFECT");
+        assertTrue(yt.getTitle().matches(".*[A-Z]$"));
+    }
+
+    @Test
+    void lastLetterNotUppercase()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("playing fnaf VR in a field");
+        assertFalse(yt.getTitle().matches(".*[A-Z]$"));
+    }
+
+    @Test
+    void lastLetterLowercase()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("playing fnaf VR in a field");
+        assertTrue(yt.getTitle().matches(".*[a-z]$"));
+    }
+
+    @Test
+    void lastLetterNotLowercase()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("THIS TITLE WILL BE IN ALL CAPS FOR DRAMATIC EFFECT");
+        assertFalse(yt.getTitle().matches(".*[a-z]$"));
+    }
+
+    @Test
+    void isMatPatVideo()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("Food Theory: The CORRECT Way To Build A Burger!");
+        assertTrue(yt.getTitle().matches(".* Theory:.*"));
+    }
+
+    @Test
+    void isNotMatPatVideo()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("playing fnaf VR in a field");
+        assertFalse(yt.getTitle().matches(".* Theory:.*"));
+    }
+
+    @Test
+    void hasAnyPunctuation()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("Food Theory: The CORRECT Way To Build A Burger!");
+        assertTrue(yt.getTitle().matches(".*[,.!?].*"));
+    }
+
+    @Test
+    void hasNoPunctuation()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTitle("playing fnaf VR in a field");
+        assertFalse(yt.getTitle().matches(".*[,.!?].*"));
+    }
+
 }
