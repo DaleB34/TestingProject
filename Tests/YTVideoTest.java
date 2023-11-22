@@ -258,4 +258,91 @@ class YTVideoTest
         assertFalse(yt.getTime().matches(".*0{2}"));
     }
 
+    @Test
+    void noUselessZero()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140");
+        String char1 = yt.getTime().charAt(0) + "";
+        assertFalse(char1.matches("^[^1-9].*"));
+    }
+
+    @Test
+    void hasUselessZero()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("040");
+        String char1 = yt.getTime().charAt(0) + "";
+        assertTrue(char1.matches("^[^1-9].*"));
+    }
+
+    @Test
+    void startSameAsEnd()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140001");
+        String char1 = yt.getTime().charAt(0) + "";
+        assertTrue(yt.getTime().matches(".*" + char1 + "$"));
+    }
+
+    @Test
+    void startNotSameAsEnd()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140000");
+        String char1 = yt.getTime().charAt(0) + "";
+        assertFalse(yt.getTime().matches(".*" + char1 + "$"));
+    }
+
+
+    @Test
+    void anyOddNumbers()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("140000");
+        assertTrue(yt.getTime().matches(".*[13579].*"));
+    }
+
+    @Test
+    void NoOddNumbers()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("24680");
+        assertFalse(yt.getTime().matches(".*[13579].*"));
+    }
+
+    @Test
+    void anyEvenNumbers()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("135792");
+        assertTrue(yt.getTime().matches(".*[02468].*"));
+    }
+
+    @Test
+    void NoEvenNumbers()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("13579");
+        assertFalse(yt.getTime().matches(".*[02468].*"));
+    }
+
+    @Test
+    void hasMessage()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("101134");//hello on a calculator
+        assertTrue(yt.getTime().matches(".*(01134).*"));
+    }
+
+    @Test
+    void hasNoMessage()
+    {
+        YTVideo yt = new YTVideo();
+        yt.setTime("43131241231241231241230214012030124");//hello on a calculator
+        assertFalse(yt.getTime().matches(".*(01134).*"));
+    }
+
+    //all Title test cases
+
 }
